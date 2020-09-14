@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Notes</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="shortcut icon" type="image/png" href="/images/192.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+  <header id="topBar">
+    <p id="currentUser">Paul : Notes</p><button id="openNav" class="openNavButton" aria-label="Open Nav Bar"
+      aria-hidden="true">☰</button>
+  </header>
+  <section id="navbar" class="navbarHolder" aria-label="Main Nav" aria-hidden="true">
+    <nav class="navbarContent">
+      <header class="navHeader">
+        <p id="currentUser">Paul : Notes</p><button id="closeNav" class="navButton" aria-label="Close Nav Bar"
+          aria-hidden="true">→</button>
+      </header>
+      <main class="navMain">
+        <% for( let i = 0; i < fileStore.length; i++ ) { %>
+        <% if (fileStore[i].type == "folder") { %>
+        <p class="folder"><%= fileStore[i].id %></p>
+        <% } %>
+        <% } %>
+      </main>
+      <footer class="navFooter">
+        <button class="footerButton" id="quitButton">Quit</button>
+        <button class="footerButton" id="settingsButton">Settings</button>
+      </footer>
+    </nav>
+  </section>
+  <section class="wrapper">
+    <section class="noteHolder" id="holder">
+      <% for( let i = 0; i < fileStore.length; i++ ) { %>
+      <% if (fileStore[i].type == "file") { %>
+      <section class="note">
+        <section class="noteDetails">
+          <h4 class="noteHeader"><%= fileStore[i].title %></h4>
+          <button class="noteButton" id=<%= fileStore[i]._id %>>...</button>
+          <p class="noteText"><%= fileStore[i].content %></p>
+          <p class="noteDate"><%= fileStore[i].date %> </p>
+        </section>
+      </section>
+      <% } %>
+      <% } %>
+    </section>
+    <button class="newNoteButton" id="addNote">＋</button>
+
+  </section>
+  <script src="/javascripts/script.js"></script>
+
+</body>
+
+</html>

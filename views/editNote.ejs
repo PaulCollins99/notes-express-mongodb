@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Edit Note</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="shortcut icon" type="image/png" href="/images/192.png">
+  <link rel="manifest" crossorigin="use-credentials" href="../manifest.json" type="application/json; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+  <header id="topBar">
+    <p id="currentUser">Paul : Notes</p><button id="openNav" class="openNavButton" aria-label="Open Nav Bar"
+      aria-hidden="true">☰</button>
+  </header>
+  <section id="navbar" class="navbarHolder" aria-label="Main Nav" aria-hidden="true">
+    <nav class="navbarContent">
+      <header class="navHeader">
+        <p id="currentUser">Paul : Notes</p><button id="closeNav" class="navButton" aria-label="Close Nav Bar"
+          aria-hidden="true">→</button>
+      </header>
+      <main class="navMain">
+        <% for( let i = 0; i < fileStore.length; i++ ) { %>
+        <% if (fileStore[i].type == "folder") { %>
+        <p class="folder"><%= fileStore[i].id %></p>
+        <% } %>
+        <% } %>
+      </main>
+      <footer class="navFooter">
+        <button class="footerButton" id="quitButton">Quit</button>
+        <button class="footerButton" id="settingsButton">Settings</button>
+      </footer>
+    </nav>
+  </section>
+  <form id="updateNote" name="updateNote" method="post" action="/updateNote">
+    <section class="newNoteInputs">
+      <% for( let i = 0; i < fileStore.length; i++ ) { %>
+      <% if (fileStore[i].type == "file") { %>
+      <% if (fileStore[i]._id == id) { %>
+      <input name="currentId" style="display: none" value="<%= fileStore[i].title %>">
+      <input type="text" id="title" placeholder="Title" class="newNoteInput" name="title" value="<%= fileStore[i].title %>">
+      <p class="newNoteDate" id="currentDate" name="date"><%= fileStore[i].date %></p><button class="newNoteMic" id="enableMic" type="button">🎤</button>
+      <textarea type="text" id="full" placeholder="Note..." class="newNoteInput" name="content"><%= fileStore[i].content %></textarea>
+      <% } %>
+      <% } %>
+      <% } %>
+    </section>
+    <footer class="newNoteFooter">
+      <button id="inputButton" class="newNoteSubmit" type="submit">Submit</button>
+    </footer>
+  </form>
+
+
+
+  <script src="/javascripts/editNotes.js"></script>
+
+</body>
+
+</html>
